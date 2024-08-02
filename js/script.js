@@ -19,9 +19,9 @@ const btnDown = document.getElementById("btn-down");
 const btnLeft = document.getElementById("btn-left");
 const btnRight = document.getElementById("btn-right");
 
-let speed = 200; // Tempo inicial do intervalo em milissegundos
-const speedIncrement = 10; // Quantidade de milissegundos a reduzir a cada aumento de dificuldade
-const scoreIncrementThreshold = 50; // Pontos após os quais a dificuldade aumenta
+let speed = 200; 
+const speedIncrement = 10; 
+const scoreIncrementThreshold = 50; 
 
 
 
@@ -42,7 +42,7 @@ const incrementScore = () => {
     score.innerText = newScore
 
     if (newScore % scoreIncrementThreshold === 0) {
-        speed = Math.max(50, speed - speedIncrement); // Não deixar a velocidade cair abaixo de 50ms
+        speed = Math.max(50, speed - speedIncrement); 
     }
 
 }
