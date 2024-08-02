@@ -2,8 +2,8 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
 function resizeCanvas() {
-    canvas.width = window.innerWidth > 600 ? 600 : window.innerWidth - 20; // Deixe um pouco de margem
-    canvas.height = window.innerWidth > 600 ? 600 : window.innerWidth - 20;
+    canvas.width = window.innerWidth > 600 ? 600 : window.innerWidth - 10; // Deixe um pouco de margem
+    canvas.height = window.innerWidth > 600 ? 600 : window.innerWidth - 10;
 }
 
 window.addEventListener("resize", resizeCanvas);
