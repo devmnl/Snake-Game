@@ -184,7 +184,11 @@ const checkCollision = () => {
     if (wallCollision || selfCollision) {
        audioGameOver.play()
        gameOver()
-       snake = [{ x: 270, y: 240 }]
+       snake = [
+        {x: 270, y: 240}, 
+        {x: 300, y: 240},
+        {x: 330, y: 240}
+    ]
        
     }
     
@@ -218,7 +222,7 @@ const gameLoop = () => {
 
 gameLoop()
 
-//keyBoard directions--------------------------------------------------
+
 document.addEventListener("keydown", ({ key }) => {
   if (key == "ArrowRight" && direction != "left") {
     direction = "right";
@@ -246,8 +250,9 @@ buttonPlay.addEventListener("click", () => {
 
     
     if (direction === undefined) {
-        direction = "right"; 
-        gameLoop(); 
+        direction = undefined; 
+        gameLoop()
+         
     }
 })
 
