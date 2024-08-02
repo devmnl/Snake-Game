@@ -21,8 +21,8 @@ body {
 
 .slogan {
     
-    position: fixed;
-    top: 30px;
+    position:static;
+    top: 0px;
     border-radius: 40px;
     background-color: rgb(151, 252, 0);
     color:#033415;
@@ -37,6 +37,7 @@ body {
 
 
 .slogan h1 {
+    
     font-size: 40px;
     font-family: "Permanent Marker", cursive;
     overflow: hidden;  
@@ -48,16 +49,21 @@ body {
 
 @media (max-width: 768px) {
     .slogan {
+        
         top: 0px; /* Ajuste a posição do slogan para telas menores */
         padding: 5px;
         
     }
 
+    
+
     canvas {
-        margin-bottom: 120px;
+        margin-bottom: 175px;
         display: block;
         max-width: 100%;
         max-height: 100vh;
+        overflow: hidden;
+        position: relative;
     }
 
     
@@ -80,6 +86,7 @@ canvas {
     max-width: 100%; 
     max-height: 100%;
     background-color: #111;
+    
 }
 
 .score {
@@ -145,11 +152,11 @@ canvas {
 .btn-row {
     display: flex;
     justify-content: center;
-    margin-top: 5px;
+    margin-top: 0px;
 }
 
 .btn-control {
-    font-size: 64px;
+    font-size: 40px;
     padding: 10px 20px;
     margin: 5px;
     border: none;
@@ -173,8 +180,9 @@ canvas {
 
 
 footer {
+    display: none;
     font-size: 15px;
-    position:fixed;
+    position: static;
     bottom: 0px;
 }
 
