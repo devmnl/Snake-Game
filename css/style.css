@@ -16,10 +16,11 @@ body {
     justify-content: center;
     color: white;
     flex-direction: column;
+    margin: 0;
 }
 
 .slogan {
-    display: block;
+    
     position: fixed;
     top: 30px;
     border-radius: 40px;
@@ -27,6 +28,7 @@ body {
     color:#033415;
     text-align: center;
     padding: 10px;
+    z-index: 10;
     
     
     
@@ -44,6 +46,19 @@ body {
     animation: typing 6s steps(40, end)1s infinite, blink-caret .75s step-end infinite;
 }
 
+@media (max-width: 768px) {
+    .slogan {
+        top: 0px; /* Ajuste a posição do slogan para telas menores */
+        
+    }
+
+    canvas {
+        margin-bottom: 60px; /* Adiciona espaço no topo do canvas para o slogan */
+    }
+
+    
+}
+
 @keyframes typing {
     0% { width: 0; }
     40% { width: 100%; }
@@ -57,11 +72,13 @@ body {
 
 
 canvas {
+    
     max-width: 100%;
     background-color: #111;
 }
 
 .score {
+    
     display: flex;
     flex-direction: column;
     align-items: center;
