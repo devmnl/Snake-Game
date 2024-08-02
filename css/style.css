@@ -49,11 +49,12 @@ body {
 @media (max-width: 768px) {
     .slogan {
         top: 0px; /* Ajuste a posição do slogan para telas menores */
+        padding: 5px;
         
     }
 
     canvas {
-        margin-bottom: 60px; /* Adiciona espaço no topo do canvas para o slogan */
+        margin-bottom: 100px; /* Adiciona espaço no topo do canvas para o slogan */
     }
 
     
