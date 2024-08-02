@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+    <title>Snake~Game</title>
+</head>
+<body>
+    <div class="slogan">
+        <h1>SNAKE GAME</h1>
+    </div>
+    <div class="score">Score: <span class="score--value">00</span></div>
+
+    <div class="menu-screen">
+        <span class="game-over">Game Over</span>
+        <span class="final-score">Score <span>00</span></span>
+
+        <button class="btn-play">
+            <span class="material-symbols-outlined">
+                play_circle
+                </span>
+            Jogar novamente
+        </button>
+    </div>
+    <div class="controls">
+        <button class="btn-control" id="btn-up">↑</button>
+        <div class="btn-row">
+            <button class="btn-control" id="btn-left">←</button>
+            <button class="btn-control" id="btn-down">↓</button>
+            <button class="btn-control" id="btn-right">→</button>
+        </div>
+    </div>
+    
+    
+    <canvas width="600" height="600"></canvas>
+
+    <footer>
+        <div>
+             DEVMNL &reg;
+        </div>
+    </footer>
+    
+        <script src="./js/script.js"></script>
+</body>
+</html>
