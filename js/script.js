@@ -3,7 +3,7 @@ const ctx = canvas.getContext("2d");
 
 function resizeCanvas() {
     canvas.width = window.innerWidth > 600 ? 600 : window.innerWidth - 5; // Deixe um pouco de margem
-    canvas.height = window.innerWidth > 600 ? 600 : window.innerWidth - 5;
+    canvas.height = window.innerWidth > 600 ? 600 : window.innerWidth - 2;
 }
 
 window.addEventListener("resize", resizeCanvas);
