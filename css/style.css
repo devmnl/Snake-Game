@@ -19,6 +19,7 @@ body {
 }
 
 .slogan {
+    display: block;
     position: fixed;
     top: 30px;
     border-radius: 40px;
