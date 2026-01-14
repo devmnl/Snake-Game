@@ -2,57 +2,79 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow"> <!-- Impede indexação por motores de busca -->
-    <meta name="google" content="notranslate"> <!-- Impede tradução pelo Google -->
-    <meta name="translate" content="no"> <!-- Impede tradução automática -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="google" content="notranslate">
+    
+    <title>Snake Game</title>
+    
     <link rel="stylesheet" href="./css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     
-<script>navigator.serviceWorker.register("pwabuilder-adv-sw.js")</script> 
-<link rel="manifest" href="manifest.json" />    <title>Snake~Game</title>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register("pwabuilder-adv-sw.js").catch(console.error);
+        }
+    </script> 
+    <link rel="manifest" href="manifest.json" />
 </head>
 <body>
-    <div class="slogan">
-        <h1>SNAKE GAME</h1>
-    </div>
-    <div class="score">Score: <span class="score--value">00</span></div>
-    <div class="score">High Score: <span class="high-score--value">00</span></div>
 
-    <div class="menu-screen">
-        <span class="game-over">Game Over</span>
-        <span class="final-score">Score <span>00</span></span>
+    <div class="game-wrapper">
+        <header class="header">
+            <div class="slogan">
+                <h1>Snake Game</h1>
+            </div>
 
-        <button class="btn-play">
-            <span class="material-symbols-outlined">
-                play_circle
-                </span>
-            Jogar novamente
-        </button>
-    </div>
-    <div class="controls">
-        <button class="btn-control" id="btn-up">↑</button>
-        <div class="btn-row">
-            <button class="btn-control" id="btn-left">←</button>
-            <button class="btn-control" id="btn-down">↓</button>
-            <button class="btn-control" id="btn-right">→</button>
+            <div class="scores-container">
+                <div class="score-box">
+                    <span class="score-label">Score</span>
+                    <span class="score-value score--value">00</span>
+                </div>
+                <div class="score-box">
+                    <span class="score-label">High Score</span>
+                    <span class="score-value high-score--value">00</span>
+                </div>
+            </div>
+        </header>
+
+        <canvas width="600" height="600"></canvas>
+
+        <div class="menu-screen">
+            <span class="game-over-title">Game Over</span>
+            <div class="final-score">Score: <span>00</span></div>
+
+            <button class="btn-play">
+                <span class="material-symbols-outlined">play_circle</span>
+                Jogar Novamente
+            </button>
+        </div>
+
+        <div class="controls">
+            <button class="btn-control" id="btn-up">
+                <span class="material-symbols-outlined">arrow_upward</span>
+            </button>
+            <div class="btn-row">
+                <button class="btn-control" id="btn-left">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                </button>
+                <button class="btn-control" id="btn-down">
+                    <span class="material-symbols-outlined">arrow_downward</span>
+                </button>
+                <button class="btn-control" id="btn-right">
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+            </div>
         </div>
     </div>
-    
-    
-        <canvas width="600" height="600"></canvas>
-    
-    
 
     <footer>
-        <div>
-             <a href="https://github.com/devmnl">
-    <img src="https://img.shields.io/github/followers/devmnl?label=Follow&style=social" alt="GitHub Follow">
-  </a>
-        </div>
+        <a href="https://github.com/devmnl" target="_blank" rel="noopener noreferrer">
+            <img src="https://img.shields.io/github/followers/devmnl?label=Follow&style=social" alt="GitHub Follow">
+        </a>
     </footer>
     
-        <script src="./js/script.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 </html>
