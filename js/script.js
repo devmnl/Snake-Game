@@ -1,18 +1,28 @@
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
+const size = 30;
 
 function resizeCanvas() {
-    canvas.width = window.innerWidth > 600 ? 600 : window.innerWidth - 2; // Deixe um pouco de margem
-    canvas.height = window.innerWidth > 600 ? 600 : window.innerWidth - 2;
+    const maxWidth = 600;
+    let width = window.innerWidth > maxWidth ? maxWidth : window.innerWidth - 10;
+    width = Math.floor(width / size) * size;
+    
+    canvas.width = width;
+    canvas.height = width;
 }
 
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
 const score = document.querySelector(".score--value")
+const highScoreElement = document.querySelector(".high-score--value")
 const finalScore = document.querySelector(".final-score > span")
 const menu = document.querySelector(".menu-screen")
 const buttonPlay = document.querySelector(".btn-play")
+
+// Load high score
+const highScore = localStorage.getItem("snakeHighScore") || 0;
+highScoreElement.innerText = highScore;
 
 const btnUp = document.getElementById("btn-up");
 const btnDown = document.getElementById("btn-down");
@@ -28,8 +38,6 @@ const scoreIncrementThreshold = 50;
 
 const audioEat = new Audio('../assets/audio.mp3')
 const audioGameOver = new Audio('../assets/gameover.wav')
-
-const size = 30;
 
 let snake = [
     {x: 270, y: 240}, 
@@ -70,7 +78,8 @@ const food = {
     color: randomColor()
 }
 
-let direction, loopId;
+let direction, loopId, lastMoveDirection;
+let isPaused = false;
 
 
 const drawFood = () => {
@@ -117,6 +126,7 @@ const moveSnake = () => {
   }
 
   snake.shift();
+  lastMoveDirection = direction;
 };
 
 const drawGrid = () => {
@@ -197,15 +207,23 @@ const checkCollision = () => {
 const gameOver = () => {
     direction = undefined
     
-
     menu.style.display = "flex"
     finalScore.innerText = score.innerText
     canvas.style.filter = "blur(12px)"
 
+    const currentScore = parseInt(score.innerText);
+    const currentHighScore = parseInt(localStorage.getItem("snakeHighScore") || 0);
+
+    if (currentScore > currentHighScore) {
+        localStorage.setItem("snakeHighScore", currentScore);
+        highScoreElement.innerText = currentScore;
+    }
 }
 
 const gameLoop = () => {
-  clearInterval(loopId);
+  clearTimeout(loopId);
+
+  if (isPaused) return;
 
   ctx.clearRect(0, 0, 600, 600);
   drawFood()
@@ -224,17 +242,22 @@ gameLoop()
 
 
 document.addEventListener("keydown", ({ key }) => {
-  if (key == "ArrowRight" && direction != "left") {
+  if (key == "ArrowRight" && lastMoveDirection != "left") {
     direction = "right";
   }
-  if (key == "ArrowLeft" && direction != "right") {
+  if (key == "ArrowLeft" && lastMoveDirection != "right") {
     direction = "left";
   }
-  if (key == "ArrowDown" && direction != "up") {
+  if (key == "ArrowDown" && lastMoveDirection != "up") {
     direction = "down";
   }
-  if (key == "ArrowUp" && direction != "down") {
+  if (key == "ArrowUp" && lastMoveDirection != "down") {
     direction = "up";
+  }
+  
+  if (key == "p" || key == "P") {
+      isPaused = !isPaused;
+      if (!isPaused) gameLoop();
   }
 });
 
@@ -246,6 +269,8 @@ buttonPlay.addEventListener("click", () => {
     
     resetFoodPosition();
     speed = 200
+    lastMoveDirection = undefined;
+    isPaused = false;
 
 
     
@@ -256,18 +281,26 @@ buttonPlay.addEventListener("click", () => {
     }
 })
 
-btnUp.addEventListener("touchstart", () => {
-    if (direction !== "down") direction = "up";
-});
+const handleDirectionChange = (newDirection) => {
+    if (newDirection == "up" && lastMoveDirection != "down") direction = "up";
+    if (newDirection == "down" && lastMoveDirection != "up") direction = "down";
+    if (newDirection == "left" && lastMoveDirection != "right") direction = "left";
+    if (newDirection == "right" && lastMoveDirection != "left") direction = "right";
+};
 
-btnDown.addEventListener("touchstart", () => {
-    if (direction !== "up") direction = "down";
-});
+[btnUp, btnDown, btnLeft, btnRight].forEach((btn) => {
+    btn.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        if (btn === btnUp) handleDirectionChange("up");
+        if (btn === btnDown) handleDirectionChange("down");
+        if (btn === btnLeft) handleDirectionChange("left");
+        if (btn === btnRight) handleDirectionChange("right");
+    });
 
-btnLeft.addEventListener("touchstart", () => {
-    if (direction !== "right") direction = "left";
-});
-
-btnRight.addEventListener("touchstart", () => {
-    if (direction !== "left") direction = "right";
+    btn.addEventListener("click", () => {
+        if (btn === btnUp) handleDirectionChange("up");
+        if (btn === btnDown) handleDirectionChange("down");
+        if (btn === btnLeft) handleDirectionChange("left");
+        if (btn === btnRight) handleDirectionChange("right");
+    });
 });
