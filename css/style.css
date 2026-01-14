@@ -20,6 +20,88 @@ body {
     overflow: hidden; /* Evita rolagem durante o jogo */
 }
 
+/* Tela de Login */
+.login-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.login-box {
+    background: #222;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    border: 2px solid #333;
+    max-width: 90%;
+    width: 400px;
+}
+
+.login-box h2 {
+    font-family: "Press Start 2P", cursive;
+    color: #97fc00;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    line-height: 1.5;
+}
+
+.login-box p {
+    color: #aaa;
+    margin-bottom: 30px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login-input {
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #444;
+    background: #333;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    text-align: center;
+    font-family: "Press Start 2P", cursive;
+    font-size: 0.8rem;
+}
+
+.login-input:focus {
+    border-color: #97fc00;
+}
+
+.btn-login {
+    background: #97fc00;
+    color: #033415;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: "Press Start 2P", cursive;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: transform 0.2s;
+}
+
+.btn-login:hover {
+    transform: scale(1.02);
+}
+
 /* Container Principal */
 .game-wrapper {
     position: relative;
@@ -29,6 +111,7 @@ body {
     justify-content: center;
     width: 100%;
     max-width: 600px;
+    display: none; /* Escondido até login */
 }
 
 /* Header & Slogan */
@@ -46,7 +129,7 @@ body {
     color: #033415;
     padding: 8px 24px;
     border-radius: 50px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     box-shadow: 0 4px 15px rgba(151, 252, 0, 0.3);
 }
 
@@ -55,6 +138,17 @@ body {
     font-size: 1.2rem;
     text-transform: uppercase;
     letter-spacing: 2px;
+}
+
+.player-info {
+    color: #aaa;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.player-name {
+    color: #97fc00;
+    font-weight: bold;
 }
 
 /* Placar */
@@ -96,17 +190,17 @@ canvas {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     image-rendering: pixelated;
     max-width: 95vw;
-    max-height: 65vh; /* Garante que caiba na tela com controles */
+    max-height: 60vh; /* Garante que caiba na tela com controles */
 }
 
-/* Tela de Game Over */
+/* Tela de Game Over & Leaderboard */
 .menu-screen {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.85);
-    padding: 40px;
+    background: rgba(0, 0, 0, 0.95);
+    padding: 30px;
     border-radius: 20px;
     display: none; /* Controlado via JS */
     flex-direction: column;
@@ -114,34 +208,73 @@ canvas {
     backdrop-filter: blur(8px);
     border: 2px solid #444;
     z-index: 20;
-    width: 80%;
+    width: 90%;
     max-width: 400px;
     text-align: center;
 }
 
 .game-over-title {
     font-family: "Press Start 2P", cursive;
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: #ff4444;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     text-shadow: 4px 4px 0 #000;
-    line-height: 1.5;
 }
 
 .final-score {
     font-size: 1.2rem;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     color: #eee;
+}
+
+.leaderboard {
+    width: 100%;
+    margin-bottom: 25px;
+    background: #222;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #333;
+}
+
+.leaderboard h3 {
+    color: #97fc00;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+.leaderboard-list {
+    list-style: none;
+    text-align: left;
+    padding: 0 10px;
+}
+
+.leaderboard-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid #333;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.leaderboard-list li:last-child {
+    border-bottom: none;
+}
+
+.leaderboard-list span:first-child {
+    font-weight: bold;
+    color: #fff;
 }
 
 .btn-play {
     background: #97fc00;
     color: #033415;
     border: none;
-    padding: 15px 30px;
+    padding: 12px 24px;
     border-radius: 50px;
     font-family: "Press Start 2P", cursive;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -223,6 +356,11 @@ footer:hover {
     }
     
     canvas {
-        max-height: 55vh; /* Reduz canvas para caber controles */
+        max-height: 50vh; /* Reduz canvas para caber controles */
+    }
+    
+    .menu-screen {
+        width: 95%;
+        padding: 20px;
     }
 }

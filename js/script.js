@@ -19,10 +19,56 @@ const highScoreElement = document.querySelector(".high-score--value")
 const finalScore = document.querySelector(".final-score > span")
 const menu = document.querySelector(".menu-screen")
 const buttonPlay = document.querySelector(".btn-play")
+const loginScreen = document.querySelector(".login-screen");
+const loginForm = document.querySelector(".login-form");
+const loginInput = document.querySelector(".login-input");
+const gameWrapper = document.querySelector(".game-wrapper");
+const playerNameElement = document.querySelector(".player-name");
+const leaderboardList = document.querySelector(".leaderboard-list");
+
+let currentPlayerName = "";
 
 // Load high score
 const highScore = localStorage.getItem("snakeHighScore") || 0;
 highScoreElement.innerText = highScore;
+
+// Login Logic
+loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = loginInput.value.trim();
+    if (name) {
+        currentPlayerName = name;
+        playerNameElement.innerText = name;
+        loginScreen.style.display = "none";
+        gameWrapper.style.display = "flex";
+        resizeCanvas(); // Ensure canvas is correct size after showing
+    }
+});
+
+const updateLeaderboard = (newScore) => {
+    const leaderboard = JSON.parse(localStorage.getItem("snakeLeaderboard")) || [];
+    
+    leaderboard.push({ name: currentPlayerName, score: newScore });
+    
+    // Sort by score (descending)
+    leaderboard.sort((a, b) => b.score - a.score);
+    
+    // Keep top 5
+    const top5 = leaderboard.slice(0, 5);
+    
+    localStorage.setItem("snakeLeaderboard", JSON.stringify(top5));
+    
+    return top5;
+};
+
+const renderLeaderboard = (leaderboard) => {
+    leaderboardList.innerHTML = leaderboard.map((entry, index) => `
+        <li>
+            <span>${index + 1}. ${entry.name}</span>
+            <span>${entry.score}</span>
+        </li>
+    `).join("");
+};
 
 const btnUp = document.getElementById("btn-up");
 const btnDown = document.getElementById("btn-down");
@@ -218,6 +264,10 @@ const gameOver = () => {
         localStorage.setItem("snakeHighScore", currentScore);
         highScoreElement.innerText = currentScore;
     }
+
+    // Update and render leaderboard
+    const top5 = updateLeaderboard(currentScore);
+    renderLeaderboard(top5);
 }
 
 const gameLoop = () => {

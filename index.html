@@ -21,10 +21,29 @@
 </head>
 <body>
 
+    <!-- Tela de Login -->
+    <div class="login-screen">
+        <div class="login-box">
+            <h2>Snake Game</h2>
+            <p>Digite seu nome para jogar</p>
+            <form class="login-form">
+                <input type="text" class="login-input" placeholder="Seu nome" maxlength="10" required>
+                <button type="submit" class="btn-login">
+                    <span class="material-symbols-outlined">play_arrow</span>
+                    Jogar
+                </button>
+            </form>
+        </div>
+    </div>
+
     <div class="game-wrapper">
         <header class="header">
             <div class="slogan">
                 <h1>Snake Game</h1>
+            </div>
+
+            <div class="player-info">
+                Jogador: <span class="player-name">---</span>
             </div>
 
             <div class="scores-container">
@@ -33,7 +52,7 @@
                     <span class="score-value score--value">00</span>
                 </div>
                 <div class="score-box">
-                    <span class="score-label">High Score</span>
+                    <span class="score-label">Best</span>
                     <span class="score-value high-score--value">00</span>
                 </div>
             </div>
@@ -45,8 +64,15 @@
             <span class="game-over-title">Game Over</span>
             <div class="final-score">Score: <span>00</span></div>
 
+            <div class="leaderboard">
+                <h3>🏆 Top 5 Jogadores</h3>
+                <ul class="leaderboard-list">
+                    <!-- Lista será preenchida via JS -->
+                </ul>
+            </div>
+
             <button class="btn-play">
-                <span class="material-symbols-outlined">play_circle</span>
+                <span class="material-symbols-outlined">replay</span>
                 Jogar Novamente
             </button>
         </div>
